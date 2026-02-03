@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator & Meal Planner</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🍳 Recipe Generator & Meal Planner</h1>
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="recipes">Generate Recipe</button>
+                <button class="tab-btn" data-tab="meal-plan">Meal Planner</button>
+            </nav>
+        </header>
+
+        <!-- Recipe Generation Section -->
+        <div id="recipes-tab" class="tab-content active">
+            <div class="card">
+                <h2>Generate a Recipe</h2>
+                <form id="recipe-form">
+                    <div class="form-group">
+                        <label for="ingredients">Ingredients (comma-separated):</label>
+                        <input type="text" id="ingredients" placeholder="e.g., chicken, pasta, tomato, cheese" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cuisine-type">Cuisine Type:</label>
+                            <select id="cuisine-type">
+                                <option value="">Any</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Mexican">Mexican</option>
+                                <option value="Asian">Asian</option>
+                                <option value="American">American</option>
+                                <option value="Mediterranean">Mediterranean</option>
+                                <option value="Indian">Indian</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="meal-type">Meal Type:</label>
+                            <select id="meal-type">
+                                <option value="">Any</option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                                <option value="snack">Snack</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="servings">Servings:</label>
+                            <input type="number" id="servings" min="1" max="20" value="4">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Dietary Preferences (select all that apply):</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="dietary" value="vegetarian"> Vegetarian</label>
+                            <label><input type="checkbox" name="dietary" value="vegan"> Vegan</label>
+                            <label><input type="checkbox" name="dietary" value="gluten-free"> Gluten-Free</label>
+                            <label><input type="checkbox" name="dietary" value="low-carb"> Low-Carb</label>
+                            <label><input type="checkbox" name="dietary" value="keto"> Keto</label>
+                            <label><input type="checkbox" name="dietary" value="dairy-free"> Dairy-Free</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Generate Recipe</button>
+                </form>
+                <div id="recipe-loading" class="loading" style="display: none;">Generating recipe with AI...</div>
+            </div>
+
+            <div id="recipe-result" class="recipe-result" style="display: none;"></div>
+        </div>
+
+        <!-- Meal Planning Section -->
+        <div id="meal-plan-tab" class="tab-content">
+            <div class="card">
+                <h2>Generate Meal Plan</h2>
+                <form id="meal-plan-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="plan-days">Number of Days:</label>
+                            <input type="number" id="plan-days" min="1" max="14" value="7">
+                        </div>
+                        <div class="form-group">
+                            <label for="meals-per-day">Meals per Day:</label>
+                            <select id="meals-per-day">
+                                <option value="3">3 (Breakfast, Lunch, Dinner)</option>
+                                <option value="4">4 (Add Snack)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="target-calories">Target Calories/Day:</label>
+                            <input type="number" id="target-calories" min="1000" max="5000" placeholder="Optional">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Dietary Preferences:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="plan-dietary" value="vegetarian"> Vegetarian</label>
+                            <label><input type="checkbox" name="plan-dietary" value="vegan"> Vegan</label>
+                            <label><input type="checkbox" name="plan-dietary" value="gluten-free"> Gluten-Free</label>
+                            <label><input type="checkbox" name="plan-dietary" value="low-carb"> Low-Carb</label>
+                            <label><input type="checkbox" name="plan-dietary" value="keto"> Keto</label>
+                            <label><input type="checkbox" name="plan-dietary" value="dairy-free"> Dairy-Free</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Generate Meal Plan</button>
+                </form>
+                <div id="meal-plan-loading" class="loading" style="display: none;">Generating meal plan with AI...</div>
+            </div>
+
+            <div id="meal-plan-result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

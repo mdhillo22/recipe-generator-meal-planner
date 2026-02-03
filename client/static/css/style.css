@@ -1,0 +1,377 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    background: white;
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+header h1 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.tab-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.tab-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.recipe-result {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.recipe-header {
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.recipe-header h3 {
+    color: #667eea;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.recipe-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.recipe-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nutrition-box {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.nutrition-item {
+    text-align: center;
+}
+
+.nutrition-item .label {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.nutrition-item .value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.ingredients-list,
+.instructions-list {
+    margin: 20px 0;
+}
+
+.ingredients-list h4,
+.instructions-list h4 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.ingredient-item {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.instruction-item {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 50px;
+}
+
+.instructions-list {
+    counter-reset: step-counter;
+}
+
+.instruction-item::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    background: #28a745;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.meal-plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.meal-day-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.meal-day-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.meal-day-header h4 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.meal-day-header .date {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.meal-item {
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.meal-item .meal-type {
+    font-weight: 600;
+    color: #667eea;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+}
+
+.meal-item .meal-name {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 5px 0;
+    color: #333;
+}
+
+.meal-item .meal-description {
+    color: #666;
+    font-size: 0.9em;
+    margin: 5px 0;
+}
+
+.meal-item .meal-calories {
+    color: #28a745;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.day-summary {
+    background: #e8f5e9;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+    color: #2e7d32;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #dc3545;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .meal-plan-grid {
+        grid-template-columns: 1fr;
+    }
+}
