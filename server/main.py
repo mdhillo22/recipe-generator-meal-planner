@@ -284,12 +284,12 @@ async def call_together_ai(prompt: str, system_prompt: str = "You are a helpful 
             try:
                 print(f"DEBUG: Calling Together.ai API (attempt {attempt + 1}/{max_retries + 1}) with model: {TOGETHER_AI_MODEL}, max_tokens: {max_tokens}")
                 async with httpx.AsyncClient(timeout=120.0) as client:  # Increased timeout to 120 seconds
-                    response = await client.post(TOGETHER_AI_API_URL, headers=headers, json=payload)
-                    print(f"DEBUG: API Response status: {response.status_code}")
-                    
-                    if response.status_code != 200:
-                        error_text = response.text
-                        print(f"DEBUG: API Error response: {error_text}")
+            response = await client.post(TOGETHER_AI_API_URL, headers=headers, json=payload)
+            print(f"DEBUG: API Response status: {response.status_code}")
+            
+            if response.status_code != 200:
+                error_text = response.text
+                print(f"DEBUG: API Error response: {error_text}")
                         
                         # Try to parse error JSON
                         try:
@@ -309,7 +309,7 @@ async def call_together_ai(prompt: str, system_prompt: str = "You are a helpful 
                         
                         # Provide user-friendly error message
                         if response.status_code == 500:
-                            raise HTTPException(
+                raise HTTPException(
                                 status_code=503,  # Service Unavailable
                                 detail=f"Together.ai service is temporarily unavailable (server error). Please try again in a few moments. Error: {error_msg}"
                             )
@@ -321,7 +321,7 @@ async def call_together_ai(prompt: str, system_prompt: str = "You are a helpful 
                     
                     # Success - parse response
                     try:
-                        result = response.json()
+            result = response.json()
                     except Exception as json_error:
                         print(f"DEBUG: Failed to parse JSON response: {json_error}")
                         print(f"DEBUG: Response text: {response.text[:500]}")
@@ -330,10 +330,10 @@ async def call_together_ai(prompt: str, system_prompt: str = "You are a helpful 
                             detail=f"Invalid JSON response from Together.ai API: {str(json_error)}"
                         )
                     
-                    if "choices" not in result or len(result["choices"]) == 0:
-                        print(f"DEBUG: Unexpected API response format: {result}")
-                        raise HTTPException(
-                            status_code=500,
+            if "choices" not in result or len(result["choices"]) == 0:
+                print(f"DEBUG: Unexpected API response format: {result}")
+                raise HTTPException(
+                    status_code=500,
                             detail="Unexpected response format from Together.ai API - no choices in response"
                         )
                     
@@ -345,14 +345,14 @@ async def call_together_ai(prompt: str, system_prompt: str = "You are a helpful 
                             detail="Empty response from LLM (content is None). Please try again."
                         )
                     content = str(content)  # Ensure it's a string
-                    print(f"DEBUG: Received response from LLM ({len(content)} chars)")
+            print(f"DEBUG: Received response from LLM ({len(content)} chars)")
                     if not content.strip():
-                        print("DEBUG: WARNING - Empty response from LLM")
-                        raise HTTPException(
-                            status_code=500,
-                            detail="Empty response from LLM. Please try again."
-                        )
-                    return content
+                print("DEBUG: WARNING - Empty response from LLM")
+                raise HTTPException(
+                    status_code=500,
+                    detail="Empty response from LLM. Please try again."
+                )
+            return content
             except HTTPException:
                 # Re-raise HTTPExceptions as-is
                 raise
@@ -386,13 +386,13 @@ async def call_together_ai(prompt: str, system_prompt: str = "You are a helpful 
                     status_code=504,
                     detail="Request to Together.ai API timed out. The service may be slow or unavailable. Please try again."
                 )
-            except httpx.HTTPStatusError as e:
-                print(f"DEBUG: HTTP error: {e.response.status_code} - {e.response.text}")
-                raise HTTPException(
-                    status_code=500,
+    except httpx.HTTPStatusError as e:
+        print(f"DEBUG: HTTP error: {e.response.status_code} - {e.response.text}")
+        raise HTTPException(
+            status_code=500,
                     detail=f"Together.ai API HTTP error: {e.response.status_code} - {e.response.text[:500]}"
-                )
-            except Exception as e:
+        )
+    except Exception as e:
                 error_type = type(e).__name__
                 error_msg = str(e) if str(e) else repr(e)
                 print(f"DEBUG: Unexpected error in API call (attempt {attempt + 1}): {error_type}: {error_msg}")
@@ -690,22 +690,22 @@ def extract_json_from_response(text: str) -> Dict[str, Any]:
     # If start_idx is already set (from days_match logic), skip the array/object detection
     if start_idx is None:
         # Initialize array_start and object_start
-        array_start = text.find("[")
-        object_start = text.find("{")
-        
-        if array_start != -1 and (object_start == -1 or array_start < object_start):
-            start_idx = array_start
-            start_char = '['
-            end_char = ']'
-            print("DEBUG: Detected JSON array")
-        elif object_start != -1:
-            start_idx = object_start
-            start_char = '{'
-            end_char = '}'
-            print("DEBUG: Detected JSON object")
-        else:
-            print(f"DEBUG: No JSON found. Full response: {text[:1000]}")
-            raise ValueError(f"No JSON found in response. Response starts with: {text[:100]}")
+    array_start = text.find("[")
+    object_start = text.find("{")
+    
+    if array_start != -1 and (object_start == -1 or array_start < object_start):
+        start_idx = array_start
+        start_char = '['
+        end_char = ']'
+        print("DEBUG: Detected JSON array")
+    elif object_start != -1:
+        start_idx = object_start
+        start_char = '{'
+        end_char = '}'
+        print("DEBUG: Detected JSON object")
+    else:
+        print(f"DEBUG: No JSON found. Full response: {text[:1000]}")
+        raise ValueError(f"No JSON found in response. Response starts with: {text[:100]}")
     else:
         # start_idx and start_char/end_char are already set from days_match logic
         print(f"DEBUG: Using pre-set start_idx: {start_idx}, start_char: {start_char}, end_char: {end_char}")
@@ -1187,7 +1187,7 @@ async def calculate_nutrition(recipe_data: Dict[str, Any]) -> Dict[str, float]:
         # Fallback to local DB
         if not nutrition:
             for food, nut in NUTRITION_DB.items():
-                if food in ing_name:
+            if food in ing_name:
                     nutrition = {
                         "calories": nut["calories"] * amount / 100,
                         "protein": nut["protein"] * amount / 100,
@@ -2351,8 +2351,8 @@ CRITICAL: Each day MUST have EXACTLY {request.meals_per_day} meals. Return ALL {
         print(f"DEBUG: Calculated max_tokens: {max_tokens} (estimated needed: {estimated_tokens_needed})")
         
         try:
-            llm_response = await call_together_ai(
-                prompt,
+        llm_response = await call_together_ai(
+            prompt,
                 system_prompt=system_prompt,
                 max_tokens=max_tokens
             )
@@ -2421,7 +2421,7 @@ CRITICAL: Each day MUST have EXACTLY {request.meals_per_day} meals. Return ALL {
                 plan_data = extract_json_from_response(llm_response            )
         else:
             # Try to parse JSON first - if it succeeds, the response is complete regardless of length
-            plan_data = extract_json_from_response(llm_response)
+        plan_data = extract_json_from_response(llm_response)
         
         print(f"DEBUG: Successfully parsed meal plan data")
         print(f"DEBUG: Plan data keys: {list(plan_data.keys()) if isinstance(plan_data, dict) else 'Not a dict'}")
