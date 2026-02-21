@@ -1,0 +1,86 @@
+================================================================================
+                    RECIPE MEAL PLANNER -  Step-by-Step Instructions
+================================================================================
+
+================================================================================
+GENERATING A MEAL PLAN
+================================================================================
+
+STEP 1: Navigate to Meal Planner Tab
+   - On the homepage, click the "Meal Planner" tab at the top
+   - This will show the meal plan generation form
+
+STEP 2: Pick the Number of Days
+   - Find the "Number of Days" field
+   - Pick a number between 1 and 3 (maximum 3 days for reliable generation)
+
+STEP 3: Choose Meals per Day
+   - Pick from the dropdown:
+     * "3 (Breakfast, Lunch, Dinner)" - Three meals per day
+     * "4 (Add Snack)" - Four meals per day (includes snack)
+
+STEP 4: Input Calories (Optional)
+   - In the "Target Calories/Day" field, input your daily-calorie goal
+   - This is optional - leave blank if you don't have a specific target
+   - Example: 3000 calories per day
+
+STEP 5: Check any Dietary Preferences (Optional)
+   - You can pick several options or none at all
+
+STEP 6: Choose Image Option (Optional)
+   - Check "Include recipe images" if you want images with your meals
+   - Note: Images may not always match recipes exactly
+   - You can leave this unchecked if you don't need images
+
+STEP 7: Generate Your Meal Plan
+   - Click the "Generate Meal Plan" button
+   - Wait for the AI to generate your Mealplan 
+
+- Once generated, your meal-plan will appear below the form
+- It'll show a calendar-style layout with each day and its meals
+
+================================================================================
+4. VIEWING YOUR MEAL PLAN
+================================================================================
+
+YOUR MEAL PLAN DISPLAY INCLUDES:
+
+For Each Day it shows:
+   - The date and the total calories for the day
+
+For Each Meal:
+   - Meal type (Breakfast, Lunch, Dinner, or Snack)
+   - Meal name
+   - Description
+   - Estimated calories
+   - Prep time and cook time
+   - Number of servings
+   - Ingredients list with amounts
+   - Step-by-step cooking instructions
+   - Image (if you picked to include images)
+
+================================================================================
+5. GENERATING A SHOPPING LIST
+================================================================================
+
+STEP 1: Generate a Meal Plan First
+   - You must have a meal plan generated before creating a shopping list
+
+STEP 2: Navigate to Shopping List Tab
+   - Click the "Shopping List" tab at the top of the page
+
+STEP 3: Select Recipes
+   - It will show a dropdown list of all recipes from your meal plan
+   - Hold Ctrl (Windows) or Cmd (Mac) and click to select several recipes
+   - Or select all recipes if you want everything
+
+STEP 4: Generate Shopping List
+   - Click the "Generate Shopping List" button
+   - Your shopping list will appear below
+
+STEP 5: Review Your Shopping List
+   - The list shows all ingredients you need
+   - Each item includes:
+     * Ingredient name
+     * Amount needed
+     * Measurement
