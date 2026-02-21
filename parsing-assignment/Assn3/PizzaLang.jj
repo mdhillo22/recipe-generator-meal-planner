@@ -1,0 +1,226 @@
+/*-------------------------------------------------------------------------*
+ *---									---*
+ *---		PizzaLang.jj						---*
+ *---									---*
+ *---	    This file defines the Pizza-language grammar and main().	---*/
+
+//	Compile with:
+//	$ javacc PizzaLang.jj
+//	$ javac *.java
+
+PARSER_BEGIN(PizzaLang)
+
+public class PizzaLang
+{
+  public static void main(String[] args) throws Exception
+  {
+    try
+    {
+      Pizza	pizza;
+
+      pizza	= new PizzaLang(new java.io.StringReader(args[0])).paragraph();
+      System.out.println("Enjoy your " + pizza);
+    }
+    catch  (Exception e)
+    {
+      System.err.println(e + "  No pizza for you!");
+    }
+  }
+  
+}
+
+PARSER_END(PizzaLang)
+
+SKIP:  { " " | "\t" | "\n" | "\r"                    }
+TOKEN: { "." | "!" | "," |
+         <BUY: "Buy"> | <MIX: "Mix"> | <SPREAD: "Spread"> | <TOP: "Top"> |
+	 <BAKE: "Bake"> |
+	 <PIZZA: "pizza"> | <DOUGH: "dough"> | <KNEAD: "knead"> |
+	 <RISE: "rise"> | <ROLL: "roll"> |
+	 <OLIVE: "olive"> | <OIL: "oil"> | <AND: "and"> |
+	 <TOMATO: "tomato"> | <PESTO: "pesto"> | <SAUCE: "sauce"> |
+	 <WITH: "with"> | <CHEESE: "cheese"> | <MUSHROOMS: "mushrooms"> | 
+	 <SPINACH: "spinach"> | <PEPPERONI: "pepperoni"> |
+	 <IN: "in"> | <A: "a"> | <PREHEATED: "preheated"> | <OVEN: "oven"> |
+	 <NOW: "Now"> | <EAT: "eat"> | <IT: "it">
+       }
+
+
+Pizza	paragraph	():
+{
+  Pizza	dough;
+  Pizza	spread;
+  Pizza	toppings;
+}
+{
+  dough=dough() spread=spread() toppings=toppings() bake() eat() <EOF>
+  {
+    dough.combineWith(spread);
+    dough.combineWith(toppings);
+    return dough;
+  }
+}
+
+
+Pizza	dough	(): 
+{
+  Pizza	pizza = new Pizza();
+}
+{
+  (
+    <BUY> <PIZZA> <DOUGH> "."
+    {
+      pizza.chooseDoughSource(DoughSource.BUY);
+    }
+  |
+    <MIX> "," <KNEAD> "," <RISE> <AND> <ROLL> <DOUGH> "."
+    {
+      pizza.chooseDoughSource(DoughSource.MAKE);
+    }
+  )
+  {
+    return pizza;
+  }
+}
+
+
+Pizza	spread	():
+{
+  Pizza	pizza = new Pizza();
+  Sauce	sauceType;
+}
+{
+  <SPREAD> <OLIVE> <OIL> <AND> sauceType=sauce()
+  {
+    pizza.chooseSauce(sauceType);
+    return pizza;
+  }
+}
+
+
+Sauce	sauce	():
+{
+}
+{
+  (
+    <TOMATO> <SAUCE> "."
+    {
+      return Sauce.TOMATO;
+    }
+  |
+    <PESTO> <SAUCE> "."
+    {
+      return Sauce.PESTO;
+    }
+  )
+}
+
+
+Pizza	toppings	():
+{
+  Pizza	pizza = new Pizza();
+}
+{
+  (
+    <TOP> <WITH> pizza=TopList()
+    {
+      return pizza;
+    }
+  |
+    {
+      return pizza;
+    }
+  )
+}
+
+
+Pizza	TopList	():
+{
+  Pizza	pizza = new Pizza();
+  Toppings	topping;
+}
+{
+  (
+    <CHEESE>
+    {
+      topping = Toppings.CHEESE;
+      pizza.addToppings(topping);
+    }
+  |
+    <MUSHROOMS>
+    {
+      topping = Toppings.MUSHROOMS;
+      pizza.addToppings(topping);
+    }
+  |
+    <SPINACH>
+    {
+      topping = Toppings.SPINACH;
+      pizza.addToppings(topping);
+    }
+  |
+    <PEPPERONI>
+    {
+      topping = Toppings.PEPPERONI;
+      pizza.addToppings(topping);
+    }
+  )
+  TopCont(pizza)
+  {
+    return pizza;
+  }
+}
+
+
+void	TopCont	(Pizza pizza):
+{
+  Toppings	topping;
+}
+{
+  (
+    "," 
+    (
+      <CHEESE>
+      {
+        topping = Toppings.CHEESE;
+        pizza.addToppings(topping);
+      }
+    |
+      <MUSHROOMS>
+      {
+        topping = Toppings.MUSHROOMS;
+        pizza.addToppings(topping);
+      }
+    |
+      <SPINACH>
+      {
+        topping = Toppings.SPINACH;
+        pizza.addToppings(topping);
+      }
+    |
+      <PEPPERONI>
+      {
+        topping = Toppings.PEPPERONI;
+        pizza.addToppings(topping);
+      }
+    )
+    TopCont(pizza)
+  |
+    "."
+  )
+}
+
+
+void	bake	():
+{
+}
+{
+  <BAKE> <IN> <A> <PREHEATED> <OVEN> "."
+}
+
+
+void	eat	():
+{ }
+{
+  <NOW> <EAT> <IT> "!"
+}
